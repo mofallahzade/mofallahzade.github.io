@@ -6,19 +6,33 @@
     <title>Document</title>
     <script>
         window.onload = function() {
-            // Create a new link element
-            const link = document.createElement('a');
-            // Set the URL of the file to be downloaded
-            link.href = './myinf.vcf'; // Replace with the actual file path
-            // Set the download attribute with a default file name
-            link.download = 'cinf.vcf'; // Replace with the desired file name
-            // Append the link to the body
-            document.body.appendChild(link);
-            // Trigger the click event on the link
-            link.click();
-            // Remove the link from the DOM
-            document.body.removeChild(link);
-        };
+            // Create a new XMLHttpRequest object
+            const xhr = new XMLHttpRequest();
+            // Configure it: GET-request for the URL /path/to/your/file.zip
+            xhr.open('GET', './myinf.vcf', true);
+            xhr.responseType = 'blob';
+            // When the request is complete
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Create a new Blob object using the response data of the onload object
+                    const blob = new Blob([xhr.response], { type: 'document/vcf' });
+                    // Create a link element
+                    const link = document.createElement('a');
+                    // Set the download attribute with a default file name
+                    link.download = 'cinf.vcf'; // Replace with the desired file name
+                    // Create a URL for the Blob and set it as the href attribute
+                    link.href = window.URL.createObjectURL(blob);
+                    // Append the link to the body
+                    document.body.appendChild(link);
+                    // Trigger the click event on the link
+                    link.click();
+                    // Remove the link from the DOM
+                    document.body.removeChild(link);
+        }
+    };
+    // Send the request
+    xhr.send();
+};
     </script>
 </head>
 <body>
