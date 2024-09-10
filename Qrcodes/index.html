@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="delay_time; URL=./myinf.vcf" />
     <title>Document</title>
 </head>
 <body>
-    
+    <script>
+        window.onload = function() {
+            // Create a new link element
+            const link = document.createElement('a');
+            // Set the URL of the file to be downloaded
+            link.href = './myinf.vcf'; // Replace with the actual file path
+            // Set the download attribute with a default file name
+            link.download = 'cinf.vcf'; // Replace with the desired file name
+            // Append the link to the body
+            document.body.appendChild(link);
+            // Trigger the click event on the link
+            link.click();
+            // Remove the link from the DOM
+            document.body.removeChild(link);
+        };
+    </script>
 </body>
 </html>
